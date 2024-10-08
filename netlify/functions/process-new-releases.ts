@@ -14,10 +14,10 @@ export default async function handler() {
         (release) => release.version === latestRelease.version,
       )
     ) {
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: "Release already analyzed" }),
-      };
+      return new Response(JSON.stringify({ message: "Release already analyzed" }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const analysis = await analyzeReleaseNotes(
@@ -39,16 +39,16 @@ export default async function handler() {
       );
     }
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: "Release analyzed and stored" }),
-    };
+    return new Response(JSON.stringify({ message: "Release analyzed and stored" }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error("Error in check-nextjs-release function:", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Internal server error" }),
-    };
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }
 
