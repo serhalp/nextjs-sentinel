@@ -31,7 +31,7 @@ export async function analyzeReleaseNotes(
       "score": 0-100,
       "relevance": "Explanation of what contributed to the score, focusing on aspects relevant to Netlify. Keep it brief but technical, and only focus on what *does* make it relevant; ignore what does not.",
       "releaseLink": "Link to the GitHub release page",
-      "relevantPRs": ["Array of links to relevant PRs"]
+      "relevantPRs": ["Array of links to relevant PRs. This should only include the PRs that have been deemed relevant. Ignore the rest."]
     }
 
     The score should reflect how likely it is that this release contains changes that matter to Netlify's engineering team.
