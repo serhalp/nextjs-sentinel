@@ -1,0 +1,41 @@
+---
+import { formatDistanceToNow } from "date-fns";
+import { getAnalyzedReleases } from "@/lib/db";
+import Layout from "../layouts/Layout.astro";
+
+const releases = await getAnalyzedReleases();
+---
+
+<Layout title="Next.js Sentinel">
+  <main>
+    <h1 class="text-4xl font-bold text-center mb-8">Next.js Sentinel</h1>
+    <div class="space-y-4">
+      {
+        releases.map((release) => (
+          <div
+            class={`card bg-base-200 shadow-xl ${
+              release.score > 60 ? "border-l-4 border-error" : ""
+            }`}
+          >
+            <div class="card-body">
+              <h2 class="card-title">{release.version}</h2>
+              <div class="flex justify-between items-center">
+                <div class="badge badge-primary">
+                  Impact Score: {release.score}
+                </div>
+                <div class="text-sm opacity-70">
+                  {formatDistanceToNow(new Date(release.analyzed_at))} ago
+                </div>
+              </div>
+              <p class="mt-2">{release.summary}</p>
+              <div class="mt-4">
+                <h3 class="font-semibold">Relevance to Netlify:</h3>
+                <p>{release.relevance}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
