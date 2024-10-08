@@ -7,30 +7,37 @@ const releases = await getAnalyzedReleases();
 ---
 
 <Layout title="Next.js Sentinel">
-  <main>
-    <h1 class="text-4xl font-bold text-center mb-8">Next.js Sentinel</h1>
-    <div class="space-y-4">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-6xl font-extrabold text-center mb-16 text-primary">
+      Next.js Sentinel
+    </h1>
+    <div class="space-y-12">
       {
         releases.map((release) => (
           <div
-            class={`card bg-base-200 shadow-xl ${
-              release.score > 60 ? "border-l-4 border-error" : ""
+            class={`card bg-base-200 shadow-xl transition-all hover:shadow-2xl ${
+              release.score > 60 ? "border-l-8 border-error" : ""
             }`}
           >
             <div class="card-body">
-              <h2 class="card-title">{release.version}</h2>
+              <h2 class="card-title text-2xl">{release.version}</h2>
               <div class="flex justify-between items-center">
-                <div class="badge badge-primary">
+                <div
+                  class="badge badge-lg"
+                  style={`background-color: hsl(${120 - release.score * 1.2}, 100%, 50%); color: ${release.score > 50 ? "white" : "black"};`}
+                >
                   Impact Score: {release.score}
                 </div>
                 <div class="text-sm opacity-70">
                   {formatDistanceToNow(new Date(release.analyzed_at))} ago
                 </div>
               </div>
-              <p class="mt-2">{release.summary}</p>
-              <div class="mt-4">
-                <h3 class="font-semibold">Relevance to Netlify:</h3>
-                <p>{release.relevance}</p>
+              <p class="mt-4 text-base-content">{release.summary}</p>
+              <div class="mt-6">
+                <h3 class="font-semibold text-lg mb-2">
+                  Relevance to Netlify:
+                </h3>
+                <p class="text-base-content">{release.relevance}</p>
               </div>
             </div>
           </div>
