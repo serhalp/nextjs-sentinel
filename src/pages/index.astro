@@ -20,7 +20,16 @@ const releases = await getAnalyzedReleases();
             }`}
           >
             <div class="card-body">
-              <h2 class="card-title text-2xl">{release.version}</h2>
+              <h2 class="card-title text-2xl">
+                <a
+                  href={release.releaseLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:underline cursor-pointer"
+                >
+                  {release.version}
+                </a>
+              </h2>
               <div class="flex justify-between items-center">
                 <div
                   class="badge badge-lg"
@@ -39,6 +48,25 @@ const releases = await getAnalyzedReleases();
                 </h3>
                 <p class="text-base-content">{release.relevance}</p>
               </div>
+              {release.relevantPRs.length > 0 && (
+                <div class="mt-4">
+                  <h3 class="font-semibold text-lg mb-2">Relevant PRs:</h3>
+                  <ul class="list-disc list-inside">
+                    {release.relevantPRs.map((pr) => (
+                      <li>
+                        <a
+                          href={pr}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="hover:underline"
+                        >
+                          {pr.split("/").pop()}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         ))

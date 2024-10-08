@@ -1,11 +1,12 @@
 interface GitHubRelease {
   tag_name: string;
   body: string;
+  html_url: string;
 }
 
 export async function getLatestNextjsReleases(
   count: number,
-): Promise<Array<{ version: string; body: string }>> {
+): Promise<Array<{ version: string; body: string; url: string }>> {
   const response = await fetch(
     `https://api.github.com/repos/vercel/next.js/releases?per_page=${count}`,
   );
@@ -16,5 +17,6 @@ export async function getLatestNextjsReleases(
   return data.map((release) => ({
     version: release.tag_name,
     body: release.body,
+    url: release.html_url,
   }));
 }

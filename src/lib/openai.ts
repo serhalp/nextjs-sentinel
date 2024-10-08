@@ -6,6 +6,8 @@ interface AnalysisResult {
   summary: string;
   score: number;
   relevance: string;
+  releaseLink: string;
+  relevantPRs: string[];
 }
 
 export async function analyzeReleaseNotes(
@@ -25,7 +27,9 @@ export async function analyzeReleaseNotes(
     {
       "summary": "Concise summary of key changes",
       "score": 0-100,
-      "relevance": "Explanation of what contributed to the score, focusing on aspects relevant to Netlify"
+      "relevance": "Explanation of what contributed to the score, focusing on aspects relevant to Netlify. Keep it brief but technical, and only focus on what *does* make it relevant; ignore what does not.",
+      "releaseLink": "Link to the GitHub release page",
+      "relevantPRs": ["Array of links to relevant PRs"]
     }
 
     The score should reflect how likely it is that this release contains changes that matter to Netlify's engineering team.

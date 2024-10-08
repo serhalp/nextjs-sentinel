@@ -20,6 +20,8 @@ async function migrate() {
         summary TEXT NOT NULL,
         score INTEGER NOT NULL,
         relevance TEXT NOT NULL,
+        releaseLink TEXT NOT NULL,
+        relevantPRs TEXT NOT NULL,
         analyzed_at TEXT NOT NULL
       )
     `);
@@ -33,12 +35,14 @@ async function migrate() {
     for (const release of releases) {
       const analysis = await analyzeReleaseNotes(release.version, release.body);
       await client.execute({
-        sql: "INSERT INTO releases (version, summary, score, relevance, analyzed_at) VALUES (?, ?, ?, ?, ?)",
+        sql: "INSERT INTO releases (version, summary, score, relevance, releaseLink, relevantPRs, analyzed_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
         args: [
           release.version,
           analysis.summary,
           analysis.score,
           analysis.relevance,
+          release.url,
+          JSON.stringify(analysis.relevantPRs ?? []),
           new Date().toISOString(),
         ],
       });

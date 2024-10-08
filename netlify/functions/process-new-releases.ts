@@ -29,6 +29,8 @@ export default async function handler() {
       analysis.summary,
       analysis.score,
       analysis.relevance,
+      latestRelease.url,
+      analysis.relevantPRs,
     );
 
     if (analysis.score > 60) {

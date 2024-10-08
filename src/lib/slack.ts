@@ -15,7 +15,7 @@ export async function sendSlackNotification(
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*New high-impact Next.js release detected!*\n\nVersion: ${version}\nImpact Score: ${score}\n\nSummary:\n${summary}`,
+          text: `*New high-impact Next.js release detected!*\n\nVersion: ${version}\nImpact Score: ${score}\n\nSummary:\n${summary}\n\n<https://nextjs-sentinel.netlify.app/|View details on Next.js Sentinel>`,
         },
       },
     ],
