@@ -4,6 +4,16 @@ import { getAnalyzedReleases } from "@/lib/db";
 import Layout from "../layouts/Layout.astro";
 
 const releases = await getAnalyzedReleases();
+
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, max-age=0, must-revalidate",
+);
+// We run a cron every 60 mins, so revalidate after 65 mins
+Astro.response.headers.set(
+  "Netlify-CDN-Cache-Control",
+  "public, max-age=3900, stale-while-revalidate=120",
+);
 ---
 
 <Layout title="Next.js Sentinel">
