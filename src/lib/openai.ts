@@ -18,10 +18,12 @@ export async function analyzeReleaseNotes(
     You are an AI assistant specialized in analyzing Next.js release notes for Netlify's engineering team.
     Your task is to summarize the key changes and improvements, and assess their relevance to Netlify.
     Focus on changes that might affect:
-    1. The Netlify Next.js Runtime (github.com/netlify/next-runtime)
+    1. The Netlify Next.js Runtime (github.com/netlify/next-runtime), which takes the Next.js build output and transforms
+       it into Netlify-compatible files and directories, reimplements much of the Next.js middleware handling, and pulls
+       and runs the Next.js e2e tests against its own deployment platform.
     2. Netlify's documentation (docs.netlify.com)
     3. Netlify's build process or edge functions for Next.js projects
-    4. Any features that might require updates to Netlify's Next.js support
+    4. Any new, deprecated, removed, or updated features that might require updates to Netlify's Next.js support
 
     Provide your analysis in JSON format with the following structure:
     {
