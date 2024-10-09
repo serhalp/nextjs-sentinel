@@ -20,9 +20,9 @@ export async function getAnalyzedReleases(): Promise<Release[]> {
     "SELECT * FROM releases ORDER BY analyzed_at DESC",
   );
   // TODO(serhalp) Verify the right turso typing pattern
-  return result.rows.map(row => ({
+  return result.rows.map((row) => ({
     ...row,
-    relevantPRs: JSON.parse(row.relevantPRs as string)
+    relevantPRs: JSON.parse(row.relevantPRs as string),
   })) as unknown[] as Release[];
 }
 
@@ -43,7 +43,7 @@ export async function insertAnalyzedRelease(
       relevance,
       releaseLink,
       JSON.stringify(relevantPRs),
-      new Date().toISOString()
+      new Date().toISOString(),
     ],
   });
 }
