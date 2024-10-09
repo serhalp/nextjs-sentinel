@@ -1,22 +1,20 @@
-interface GitHubRelease {
-  tag_name: string;
-  body: string;
-  html_url: string;
-}
+import { Octokit } from "@octokit/rest";
 
 export async function getLatestNextjsReleases(
   count: number,
+  token = process.env.GITHUB_TOKEN,
 ): Promise<Array<{ version: string; body: string; url: string }>> {
-  const response = await fetch(
-    `https://api.github.com/repos/vercel/next.js/releases?per_page=${count}`,
-  );
-  if (!response.ok) {
-    throw new Error(`GitHub API request failed: ${response.statusText}`);
-  }
-  const data: GitHubRelease[] = await response.json();
+  const octokit = new Octokit({ auth: token });
+
+  const { data } = await octokit.repos.listReleases({
+    owner: "vercel",
+    repo: "next.js",
+    per_page: count,
+  });
+
   return data.map((release) => ({
     version: release.tag_name,
-    body: release.body,
+    body: release.body ?? "",
     url: release.html_url,
   }));
 }

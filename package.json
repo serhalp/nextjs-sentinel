@@ -21,6 +21,7 @@
     "@astrojs/netlify": "^5.5.3",
     "@astrojs/tailwind": "^5.1.1",
     "@libsql/client": "^0.3.5",
+    "@octokit/rest": "^21.0.2",
     "astro": "^4.15.12",
     "daisyui": "^3.9.2",
     "date-fns": "^2.30.0",
